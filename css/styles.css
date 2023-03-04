@@ -1,1 +1,112 @@
-/* developer styles go here */
+body {
+    font-family: sans-serif;
+}
+
+header {
+    max-width: 58rem;
+    margin: 0 auto;
+}
+
+/* Step 1. Style all menu links for the small screen first.
+NOte: when doing any navigation - list plus anchor tags inside, put the text styling on the anchor element because it is the hardest to overwrite in the browser. The browser adds its own styling which is the default purple and underline on links. even though you style the body with a font color, it wouldn't apply to the links.
+
+So text styling goes on the anchor tag, to overwrite the browser styles and when you do that, all of the layout and spacing properties goes on the list items*/
+
+ul.menu {
+    background-color: #191919;
+}
+
+ul.menu a {
+    color: #f5f5f5;
+    text-transform: uppercase;
+    display: block;
+    padding: 0 1rem;
+}
+
+
+ul.menu li {
+    line-height: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+ul.menu a:hover,
+ul.menu a:active {
+    background-color: #404040;
+    border-radius: 5px;
+}
+
+ul.submenu {
+    padding: 0 1rem;
+
+}
+
+ul.submenu a {
+    text-decoration: none;
+}
+
+svg {
+    display: none;
+}
+
+@media screen and (min-width: 58rem) {
+    ul.menu {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    ul.menu li {
+        flex: 1 0 auto;
+        text-align: center;
+        margin-bottom: 0;
+        /* Allows us to position the dropdown absolutely but relative to this element */
+        position: relative;
+    }
+
+    li.dropdown a {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    svg {
+        width: 1rem;
+        display: block;
+    }
+
+    svg path {
+        fill: #f5f5f5;
+    }
+
+    /* Step 2: Position and hide the dropdown submenu */
+    ul.submenu {
+        padding: 0;
+        position:absolute;
+        right:0;
+        background-color: #191919;
+        border-radius: 0 0 5px 5px;
+        visibility: hidden;
+        opacity: 0; 
+    }
+
+    /* Step 3. Add a hover state that would show the submenu or the dropdown */
+    ul.menu li:hover > ul {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Step 4. Add transition to the dropdown to remove the clunkiness */
+    ul.submenu {
+        transition: all 0.5s ease;
+    }
+
+    /* Step 5. Add keyboard accessibility using the focus-within state */
+    /* https://webaim.org/techniques/keyboard/ */
+    ul.menu li:focus-within > ul, 
+    ul.menu li > ul:focus {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+    }
+
+
+}
